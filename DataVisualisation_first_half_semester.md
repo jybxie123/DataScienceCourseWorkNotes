@@ -48,7 +48,7 @@ Spatial data: geographical maps, bubble chart, heat map.
 
 reshape: long form to wide form (pivot), wide form to long form (melt)
 
-# 第三章： 可视化编码
+## 第三章： 可视化编码
 
 ### 1. Bertin's visual variables:
 
@@ -84,7 +84,7 @@ Visual marks: Points, lines, areas.
 2. 它们的数据noir scale是怎样的。
 3. 将变量与它们的encoding一一对应起来。
 
-# 第四章：可视化工具：
+## 第四章：可视化工具：
 
 ### 如何选择合适的工具：
 
@@ -105,6 +105,226 @@ bokeh, seaborn, pandas, matplotlib.
 Geospatial Data: GeoPandas, Geoplot.
 
 Textual Data: WordCloud,
+
+## 第六章：人类的视觉感知
+
+我们的视觉产生在大脑。
+
+### 1. Steven's Power Law：
+
+![1696834606541](image/DataVisualisation_first_half_semester/1696834606541.png)
+
+![1696834619184](image/DataVisualisation_first_half_semester/1696834619184.png)
+
+人对于不同类型的视觉刺激感受程度不同。
+
+比如对于长度的倍数感知是1：1，但是对于面积的感知，是实际的I^0.7
+
+#### 应用：
+
+1. 选择正确合适的视觉标记。
+2. 对于已知n的标记类型，要做适当的倍数调整使得视觉看上去更合理。
+   1. Flannery： apparent scaling
+   2. Edward Tufte: absolute scaling
+
+### 2. Weber's Law
+
+![1696834739228](image/DataVisualisation_first_half_semester/1696834739228.png)
+
+Just Noticeable Difference (JND) is the minimum amount by which stimulus
+intensity must be changed in order to produce a noticeable variation in sensory
+experience. 简单来说就是引起人类察觉的最小变化。
+
+实际应用就是，对于初始刺激越大的对象，要变化的更大才能引起察觉。
+
+#### 应用：
+
+1.做颜色对比的时候，遵循公式选择合适的背景、前景颜色。
+
+2.长度对比时可以加入网格。（注意：网格最好加上一定透明度否则会影响观感和可识别度。最好是20%不透明度，0是全透）
+
+上下文会影响视觉感受
+
+### 3. 预注意视觉处理
+
+可以使得某些元素stand out，便于突出显示。
+
+但是过多的视觉元素会阻碍视觉预注意过程。
+
+### 4. 格式塔原理
+
+#### 1).格式塔心理学：
+
+整体并非局部之和。
+
+#### 2).格式塔八大原则：
+
+##### proximity
+
+近者为盟，距离越近的可能为同类。
+
+聚类思想。
+
+##### similarity
+
+相似的相同类。
+
+同色的往往同类。
+
+##### simplicity
+
+**简单就是终极复杂：越简单越有效。**
+
+排序以简化问题。
+
+简化图像使得尽可能多的笔墨用于数据本身。Data-Ink Ratio Maximisation
+
+##### connectedness
+
+连接即整体，相连意味着是一个单位
+
+##### enclosure
+
+包括即共同， 通过边界和边框划分到一起就意味着同类。
+
+包括的强调程度大于连通大于相似/相近。
+
+##### continuity
+
+连续即不突变，常识告诉我们一般趋势都会延续而较少突变。
+
+基于此原则可以简化一些图像。
+
+也推荐用曲线代替直角折线，更容易区分。
+
+##### symmetry
+
+对称即整体。对称图像往往都是一个单一个体。
+
+也可在violin图中对称位置来比较两个变量。
+
+##### figure/ground
+
+人会下意识区分前后景，图像设计时应避免歧义。明确前后景。
+
+### 5. 色彩感知
+
+1. Bezold Effect: 邻近颜色会影响人的颜色感知。
+2. 显示和打印的区别：
+   1. 显示是发光，采用红绿蓝三原色；
+   2. 打印是吸收光，采用反色：CMYK：Cyan，Magenta， Yellow， Black
+
+### 6. 颜色模型
+
+1. HSL（我们主要讨论的）
+
+   H: Hue，S: Saturation(gray)，L: Lightness(black to white)
+2. HSV/HSB
+
+   H: Hue， S: Saturation(white)，B/V: Brightness/Value(black)
+
+### 7. 颜色的数据易读性
+
+#### nominal scale：
+
+hue最有区分度。saturation次之，lightness不行。
+
+不能出现太多颜色，不然难以区分。
+
+#### Ordinal Scale:
+
+saturation 或者lightness序列都可以用。也可以both。
+
+对于diverging序列， 可以加一个hue来区分正负，用white来做zero即可。
+
+#### Interval/Ratio Scale
+
+颜色变化主要用来区分数据的相对值或大小
+
+简化阅读：binned color，discrete classification。
+
+不要只用hue，要hue和saturation结合，且sat是主要作用。
+
+### 8.色盲问题：
+
+色盲比例较高，解决方案：
+
+1. 冗余编码，采用texture、shape、symbols、patterns等多种表示。
+2. 避免太多颜色。避免色盲颜色及相近的颜色：如，纯红绿比较等。
+
+### 9.颜色主要作用：
+
+1. 不要过度使用。严格限制颜色数量
+2. 可以用来强调和突出重点。
+3. 颜色可以帮助我们探索数据内在信息。
+4. 颜色有助于比较
+5. 颜色可以反馈情绪（注意culture和上下文变化），尤其增加对比颜色的情况下。
+
+## 第七章：设计可视化
+
+主要三点：
+
+1.了解目的
+
+探索型还是解释型。
+
+2.了解观众
+
+专业性，文化背景
+
+3.了解正确的图表类型。
+
+几个用于选择图表的问题：
+
+1.How many variables do you want to show in a single chart? (1, 2, 3 or many?)
+2.How many items (data points) will you display for each variable? (only a few or many?)
+3.Will you display values over a period of time, or among items or groups?
+
+![1696837591958](image/DataVisualisation_first_half_semester/1696837591958.png)
+
+### 有效图表的心理学原理：八步法
+
+#### 1. 八步法的三大核心：
+
+##### 和你的观众建立联系；
+
+##### 通过视觉引导观众注意力；
+
+##### 促进理解和记忆的保持。
+
+#### 八步法内容：
+
+##### 信息别太多也别太少
+
+##### 了解观众背景
+
+信息不要超出观众理解范围
+
+##### 把突出格式留给最重要的
+
+如果全部信息突出，就是不突出。
+
+##### 保持可辨别性
+
+展开图形太小的信息
+
+##### 分组
+
+用格式塔原则分组，避免误解。
+
+##### 让形式与实际意义相一致
+
+如果描述实物，用本身的颜色来作为统计数据的标识颜色。
+
+##### 让变化携带信息
+
+让图像中所有视觉变化，都携带了信息。
+
+##### 不要给太多组
+
+最好不要超过四组信息。
+
+
 
 # 常见图表绘制函数参数：
 
@@ -527,7 +747,6 @@ through to [**matplotlib.axes.Axes.boxplot()**](https://matplotlib.org/stable/ap
 Returns the Axes object with the plot
 drawn onto it.
 
-
 ### Histogram:
 
 **Parameters:**
@@ -755,7 +974,6 @@ other element, fill=False)
 [**matplotlib.axes.Axes**](https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes "(in Matplotlib v3.8.0)")
 
 The matplotlib axes containing the plot.
-
 
 ### Bar plot
 
